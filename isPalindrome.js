@@ -1,9 +1,3 @@
-// this problem is solved with two different methods 
-/*
-first with linked list and array
-and second one is more efficient with stack and linked list (cleaner code and easy to understand)
-*/
-
 class Node{
     constructor(data){
         this.data=data;
@@ -37,6 +31,26 @@ class LinkedList{
           tempNode=tempNode.next;
       }
       console.log(tempArr);
+  }
+  reverse(){
+      if(this.isEmpty() || this.length===1)
+          return this;
+      let prevNode=this.head;
+      let currentNode=this.head.next;
+      let nextNode=this.head.next.next;
+      this.tail=prevNode;
+      while(nextNode){
+          currentNode.next=prevNode; // 1- reverse pointer
+          prevNode=currentNode; // 2-move every node one step 
+          currentNode=nextNode;
+          nextNode=nextNode.next;
+      }
+      
+      this.head=currentNode;
+      this.head.next=prevNode;
+      this.tail.next=null;
+      return this;
+
   }
 }
 //this method takes O(n) time and O(n) space Complexity
@@ -105,9 +119,16 @@ l1.insert('a');
 l1.insert('b');
 l1.insert('d');
 l1.insert('c');
+l1.insert('k');
+l1.insert('c');
 l1.insert('d');
 l1.insert('b');
 l1.insert('a');
+let result1=isPalindrome(l1)
+let result2=is_palindrome(l1)
 
-let result=is_palindrome(l1)
-console.log(result);
+console.log(result1);
+console.log(result2);
+
+
+
