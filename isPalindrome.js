@@ -1,3 +1,9 @@
+// this problem is solved with two different methods 
+/*
+first with linked list and array
+and second one is more efficient with stack and linked list (cleaner code and easy to understand)
+*/
+
 class Node{
     constructor(data){
         this.data=data;
@@ -52,7 +58,48 @@ function isPalindrome(list){ //O(n)
   return true;
 }
 
-
+class Stack{
+  constructor(){
+      this.top=-1;
+      this.data=[];
+  }
+  isEmpty(){
+      return this.top===-1;
+  }
+  push(element){
+      this.data[++this.top]=element;
+  }
+  pop(){
+      if(!this.isEmpty())
+          return this.data[this.top--]
+      return "The Stack is Empty";
+  }
+  getTop(){
+      if(this.isEmpty())
+          return "the stack is empty";
+      return this.data[this.top];
+  }
+};
+function is_palindrome(list){//same thing using stack 
+  if(list.isEmpty() || list.length ===1)
+      return false;
+  let traversalNode=list.head;
+  let tempStack=new Stack();
+  //loop for first time to add linked list elements in the stack
+  while(traversalNode){
+      tempStack.push(traversalNode.data);
+      traversalNode=traversalNode.next;
+  }
+  //loop again to check if last element in the stack is equal to first element in the list 
+  traversalNode=list.head;
+  while(traversalNode){
+      if(traversalNode.data !== tempStack.pop())
+          return false;
+      traversalNode=traversalNode.next;
+  }
+ 
+  return true;
+}
 let l1=new LinkedList();
 l1.insert('a');
 l1.insert('b');
@@ -62,5 +109,5 @@ l1.insert('d');
 l1.insert('b');
 l1.insert('a');
 
-let result=isPalindrome(l1)
+let result=is_palindrome(l1)
 console.log(result);
